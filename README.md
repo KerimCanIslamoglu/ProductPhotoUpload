@@ -18,7 +18,7 @@ ProductManagement.DataAccess -> Context -> ApplicationDbContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            //change here.
-		   optionsBuilder.UseSqlServer(@"Server=MSI\MSSQLSERVER14;Database=ProductManagementDb;Trusted_Connection=True;");  
+		   optionsBuilder.UseSqlServer(@"Server=MSI\MSSQLSERVER14;Database=ProductPhotoUploadDb;Trusted_Connection=True;");  
         }
 
 - The database and the tables would be created on application start and all the tables would seeded with datas (Color, fabric, product etc.)
