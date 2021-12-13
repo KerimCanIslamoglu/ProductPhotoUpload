@@ -13,7 +13,7 @@
 ### For starter
 
 -   Before you get started please change the connection string in the following directory;
-ProductManagement.DataAccess -> Context -> ApplicationDbContext
+EcommercePhotoUpload.DataAccess -> Context -> ApplicationDbContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
