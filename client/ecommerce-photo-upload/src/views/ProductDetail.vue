@@ -14,61 +14,62 @@
         }}</span></label
       >
     </div>
-
-    <table class="table table-borderless mt-5">
-      <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col" v-for="color in colorList" :key="color.colorId">
-            {{ color.colorName }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="fabric in fabricList" :key="fabric.fabricId">
-          <th style="height: 100px" scope="row">{{ fabric.fabricName }}</th>
-          <td
-            v-for="color in colorList"
-            :key="color.colorId"
-            class="image-list-td"
-          >
-            <div
-              class="image"
-              v-for="image in imageRender(fabric.fabricId, color.colorId)"
-              :key="image.id"
+    <div class="table-responsive">
+      <table class="table table-borderless mt-5">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col" v-for="color in colorList" :key="color.colorId">
+              {{ color.colorName }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="fabric in fabricList" :key="fabric.fabricId">
+            <th style="height: 100px" scope="row">{{ fabric.fabricName }}</th>
+            <td
+              v-for="color in colorList"
+              :key="color.colorId"
+              class="image-list-td align-middle"
             >
-              <button
-                type="button"
-                class="close-button"
-                @click="deleteImage(image.id)"
+              <div
+                class="image"
+                v-for="image in imageRender(fabric.fabricId, color.colorId)"
+                :key="image.id"
               >
-                -
-              </button>
-              <img
-                v-bind:src="'http://localhost:62766' + image.imageUrl"
-                v-bind:alt="image.imageName"
-                class="img img-responsive full-width"
+                <button
+                  type="button"
+                  class="close-button"
+                  @click="deleteImage(image.id)"
+                >
+                  -
+                </button>
+                <img
+                  v-bind:src="'http://localhost:62766' + image.imageUrl"
+                  v-bind:alt="image.imageName"
+                  class="img img-responsive full-width"
+                />
+              </div>
+              <input
+                id="fileUpload"
+                type="file"
+                @change="onFileChange"
+                hidden
+                ref="file"
               />
-            </div>
-            <input
-              id="fileUpload"
-              type="file"
-              @change="onFileChange"
-              hidden
-              ref="file"
-            />
-            <button
-              class="btn btn-primary btn-sm ms-2"
-              @click="chooseFiles"
-              v-bind:fabricId="fabric.fabricId"
-              v-bind:colorId="color.colorId"
-            >
-              Add
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              <button
+                class="btn btn-primary btn-sm ms-2"
+                @click="chooseFiles"
+                v-bind:fabricId="fabric.fabricId"
+                v-bind:colorId="color.colorId"
+              >
+                Add
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -133,9 +134,6 @@ export default {
       });
     },
     deleteImage(id) {
-      console.log(id);
-      console.log("Hello");
-
       axios
         .delete("http://localhost:62766/api/Product/DeleteProductDetail/" + id)
         .then((res) => {
@@ -184,16 +182,15 @@ export default {
 
 <style scoped>
 .img-responsive {
-  height: 80px;
-  width: 50px;
+  height: 50px;
+  width: 30px;
   margin: 10px;
 }
 .image {
   position: relative;
   display: inline-block;
 }
-.image-list-td {
-}
+
 .close-button {
   right: 0px;
   position: absolute;
